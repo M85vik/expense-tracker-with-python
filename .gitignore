@@ -1,0 +1,52 @@
+# --- Python basics ---
+__pycache__/
+*.py[cod]
+*$py.class
+
+# --- Virtual environment ---
+venv/
+.venv/
+env/
+ENV/
+
+# --- Packaging / build ---
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# --- Logs / coverage / test artifacts ---
+*.log
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+
+# --- IDE / editor configs ---
+.vscode/
+.idea/
+
+# --- Type checker caches ---
+.mypy_cache/
+.pyre/
+
+# --- FastAPI / app-specific ---
+app/.env        # environment variables file
+*.db            # SQLite or other local DB files
+*.sqlite3
+instance/
+.webassets-cache
+
+# --- Jupyter Notebook checkpoints ---
+.ipynb_checkpoints
+
+# --- Translations ---
+*.mo
+*.pot
+app/.env
