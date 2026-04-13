@@ -57,3 +57,51 @@ class ExpenseRepository:
 
         await conn.close()
         return [dict(row) for row in rows]
+
+
+    async def get_expense_by_id(self, expense_id:int):
+        conn = await get_db_connection()
+
+        query = "SELECT * FROM expenses WHERE id = $1 RETURNING id"
+
+        result = await conn.fetchrow(query, expense_id)
+
+        await conn.close()
+        return dict(result)
+
+
+
+    async def get_expenses_by_month(self, month: int, year: int):
+
+        conn = await get_db_connection()
+
+        query = """
+        SELECT category, amount
+        FROM expenses
+        WHERE EXTRACT(MONTH FROM date) = $1
+        AND EXTRACT(YEAR FROM date) = $2
+        """
+
+        rows = await conn.fetch(query, month, year)
+
+        await conn.close()
+        return [dict(row) for row in rows]
+    
+    
+    async def get_expense_by_id(self, expense_id: int):
+        conn = await get_db_connection()
+
+        query = "SELECT * FROM expenses WHERE id = $1"
+        result = await conn.fetchrow(query, expense_id)
+
+        await conn.close()
+        return dict(result) if result else None
+
+    async def delete_expense(self, expense_id: int):
+        conn = await get_db_connection()
+
+        query = "DELETE FROM expenses WHERE id = $1 RETURNING id"
+        result = await conn.fetchrow(query, expense_id)
+
+        await conn.close()
+        return result is not None
